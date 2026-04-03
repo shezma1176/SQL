@@ -48,3 +48,29 @@ SELECT *
 FROM Restaurant
 WHERE cuisine = "Italian"
 AND price IN ('$$', '$$$');
+
+-- 6) Restaurants with exactly $$$
+SELECT *
+FROM Restaurant
+WHERE price = '$$$';
+
+-- 7) Restaurant name contains "Candy"
+SELECT *
+FROM Restaurant
+WHERE name LIKE '%Candy%';
+
+-- 8) Restaurants in Midtown, Downtown, or Chinatown
+SELECT *
+FROM Restaurant
+WHERE neighborhood IN ('Midtown', 'Downtown', 'Chinatown');
+
+-- 9) Health grade pending (empty value)
+SELECT *
+FROM Restaurant
+WHERE health = '' OR health IS NULL;
+
+-- 10) Top 4 restaurants based on reviews
+SELECT *
+FROM Restaurant
+ORDER BY review DESC
+LIMIT 4;
