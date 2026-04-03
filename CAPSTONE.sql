@@ -69,3 +69,44 @@ FROM orders
 JOIN customer ON orders.customer_id = customer.customer_id
 JOIN salesman ON orders.salesman_id = salesman.salesman_id
 WHERE customer.city <> salesman.city;
+
+-- Fetching all orders with customer names
+
+SELECT orders.ord_no, customer.customer_name
+FROM orders
+JOIN customer ON orders.customer_id = customer.customer_id;
+
+-- Customers with grades
+
+SELECT customer.customer_name AS "Customer", customer.grade AS "Grade"
+FROM orders
+JOIN salesman ON orders.salesman_id = customer.customer_id
+JOIN customer ON orders.customer_id = customer.customer_id
+WHERE customer.grade IS NOT NULL;
+
+-- Customers with salesmen where commission is between 0.12 and 0.14
+
+SELECT customer.customer_name AS "Customer",
+customer.city AS "City",
+salesman.s_name AS "Salesman",
+salesman.comission 
+FROM customer
+JOIN salesman ON customer.salesman_id = salesman.salesman_id
+WHERE salesman.comission BETWEEN 0.12 AND 0.14;
+
+
+-- Calculating commissions for orders where customer grade is 200 or more
+
+SELECT orders.ord_no, customer.customer_name, salesman.comission AS "Comission%",
+orders.purch_amt * salesman.comission AS "Comission"
+FROM orders
+JOIN salesman ON orders.salesman_id = salesman.salesman_id
+JOIN customer ON orders.customer_id = customer.customer_id
+WHERE customer.grade >= 200;
+
+-- Orders on a specific date
+
+SELECT *
+FROM customer
+JOIN orders ON customer.customer_id = orders.customer_id
+WHERE orders.ord_date = '2026-10-05';
